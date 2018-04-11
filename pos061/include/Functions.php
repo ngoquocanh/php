@@ -19,50 +19,50 @@
         }
 
         /**
-         * get user by id
-         * @return user
+         * get object by id
+         * @return object
          */
-        public function getUsers($id) {
-            $stmt = $this->conn->prepare("SELECT * FROM users WHERE id = ?");
+        public function getObject($id) {
+            $stmt = $this->conn->prepare("SELECT * FROM pos061 WHERE id = ?");
             $stmt->bind_param("i", $id);
             if ($stmt->execute()) {
-                $user = $stmt->get_result()->fetch_assoc();
+                $object = $stmt->get_result()->fetch_assoc();
                 $stmt->close();
-                return $user;
+                return $object;
             } else {
                 return NULL;
             }
         }
 
         /**
-         * save new user
-         * @return user
+         * create new object
+         * @return object
          */
-        public function storeUser($name, $email, $phone) {
-            $stmt = $this->conn->prepare("INSERT INTO users(name, email, phone) VALUES(?, ?, ?)");
-            $stmt->bind_param("sss", $name, $email, $phone);
+        public function storeObject($countryCode, $areaCode, $mobileNumber) {
+            $stmt = $this->conn->prepare("INSERT INTO pos061(country_code, area_code, mobile_number) VALUES(?, ?, ?)");
+            $stmt->bind_param("sss", $countryCode, $areaCode, $mobileNumber);
             $result = $stmt->execute();
             $stmt->close();
 
             // check for successful store
             if ($result) {
-                $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = ?");
-                $stmt->bind_param("s", $email);
+                $stmt = $this->conn->prepare("SELECT * FROM pos061 WHERE mobile_number = ?");
+                $stmt->bind_param("s", $mobileNumber);
                 $stmt->execute();
-                $user = $stmt->get_result()->fetch_assoc();
+                $object = $stmt->get_result()->fetch_assoc();
                 $stmt->close();
-                return $user;
+                return $object;
             } else {
                 return false;
             }
         }
 
         /**
-         * Check user is existed or not
+         * Check object is existed or not
          */
-        public function isUserExisted($email) {
-            $stmt = $this->conn->prepare("SELECT email from users WHERE email = ?");
-            $stmt->bind_param("s", $email);
+        public function isObjectExisted($mobileNumber) {
+            $stmt = $this->conn->prepare("SELECT mobile_number from pos061 WHERE mobile_number = ?");
+            $stmt->bind_param("s", $mobileNumber);
             $stmt->execute();
             $stmt->store_result();
             if ($stmt->num_rows > 0) {

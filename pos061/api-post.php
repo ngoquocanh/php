@@ -1,4 +1,5 @@
 <?php
+    header('Access-Control-Allow-Origin: *');
     require_once 'include/Functions.php';
     $db = new Functions();
 
@@ -12,22 +13,22 @@
      * }
      */
     $response = array("statusCode" => RS_STATUS_CODE_SUCCESS, "statusMessage" => RS_STATUS_MESSAGE_SUCCESS, "data" => NULL);
-    if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['phone'])) {
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $phone = $_POST['phone'];
+    if (isset($_POST['countryCode']) && isset($_POST['areaCode']) && isset($_POST['mobileNumber'])) {
+        $countryCode = $_POST['countryCode'];
+        $areaCode = $_POST['areaCode'];
+        $mobileNumber = $_POST['mobileNumber'];
 
-        if ($db->isUserExisted($email)) {
+        if ($db->isObjectExisted($mobileNumber)) {
             $response["statusCode"] = RS_STATUS_CODE_FAIL;
-            $response["statusMessage"] = "Already existed with " . $email;
+            $response["statusMessage"] = "Already existed with " . $mobileNumber;
             echo json_encode($response);
         } else {
-            $user = $db->storeUser($name, $email, $phone);
-            if ($user) {
-                $data["id"] = $user["id"];
-                $data["name"] = $user["name"];
-                $data["email"] = $user["email"];
-                $data["phone"] = $user["phone"];
+            $object = $db->storeObject($countryCode, $areaCode, $mobileNumber);
+            if ($object) {
+                $data["id"] = $object["id"];
+                $data["country_code"] = $object["country_code"];
+                $data["area_code"] = $object["area_code"];
+                $data["mobile_number"] = $object["mobile_number"];
 
                 $response["data"] = $data;
                 echo json_encode($response);
