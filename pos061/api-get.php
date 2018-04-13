@@ -18,9 +18,9 @@
         $object = $db->getObject($id);
         if ($object != false) {
             $data["id"] = $object["id"];
-            $data["country_code"] = $object["country_code"];
-            $data["area_code"] = $object["area_code"];
-            $data["mobile_number"] = $object["mobile_number"];
+            $data["countryCode"] = $object["country_code"];
+            $data["areaCode"] = $object["area_code"];
+            $data["mobileNumber"] = $object["mobile_number"];
 
             $response["data"] = $data;
             echo json_encode($response);

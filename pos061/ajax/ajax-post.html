@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Ajax Post</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#btnSubmit').on('click', function() {
+                    var countryCode = $('#countryCode').val();
+                    var areaCode = $('#areaCode').val();
+                    var mobileNumber = $('#mobileNumber').val();
+                    $.ajax({
+                        type: 'POST',
+                        url: '../api-post.php',
+                        dataType: 'json',
+                        data: {countryCode:countryCode, areaCode:areaCode, mobileNumber:mobileNumber},
+                        success: function(data) {
+                            if(data.statusCode == 200) {
+                                $('#phoneId').text(data.data.id);
+                                $('#phoneCountryCode').text(data.data.countryCode);
+                                $('#phoneAreaCode').text(data.data.areaCode);
+                                $('#phoneMobileNumber').text(data.data.mobileNumber);
+                                $('#contentRes').slideDown();
+                            } else {
+                                $('#contentRes').slideUp();
+                                alert("Not found...");
+                            }
+                        } 
+                    });
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div>
+            <h4>Please enter your new mobile number for 2FA Authentication</h4>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                <label for="countryCode">Country Code</label>
+                <select id="countryCode" class="form-control">
+                  <option selected>+65</option>
+                  <option selected>+84</option>
+                  <option selected>+79</option>
+                  <option selected>+43</option>
+                  <option selected>+26</option>
+                  <option selected>+11</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="areaCode">Area Code</label>
+                <input type="text" class="form-control" id="areaCode">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="mobileNumber">Mobile Number</label>
+                <input type="text" class="form-control" id="mobileNumber">
+              </div>
+            </div>
+        <button id="btnSubmit" type="button" class="btn btn-primary">Submit</button>
+      </div>
+
+        <div id="contentRes" style="display: none;">
+            <h4>Phone Saved Details</h4>
+            <p>Id: <span id="phoneId"></span></p>
+            <p>Country Code: <span id="phoneCountryCode"></span></p>
+            <p>Area Code: <span id="phoneAreaCode"></span></p>
+            <p>Mobile Number: <span id="phoneMobileNumber"></span></p>
+        </div> 
+    </body>
+</html>

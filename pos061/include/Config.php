@@ -3,8 +3,8 @@
      * Database config variables
      */
     define("DB_HOST", "localhost");
-    define("DB_USER", "demo");
-    define("DB_PASSWORD", "demo");
+    define("DB_USER", "root");
+    define("DB_PASSWORD", "qwe!@#1qa");
     define("DB_DATABASE", "demo");
 
     /**
