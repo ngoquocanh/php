@@ -39,9 +39,9 @@ If success, result like this:
       "statusMessage": "Success",
       "data": {
         "id": 1,
-        "country_code": "+84",
-        "area_code": "6546",
-        "mobile_number": "88888888"
+        "countryCode": "+84",
+        "areaCode": "6546",
+        "mobileNumber": "88888888"
       }
     }
 ```
