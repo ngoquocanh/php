@@ -7,7 +7,7 @@ Crud rest php
 Install LAMP or LEMP  on your local machine include:
 * Apache or Nginx server
 * PHP
-* Mysql
+* Mysql(Test)
 
 I'm using:
 * Ubuntu 16.04 LTS
